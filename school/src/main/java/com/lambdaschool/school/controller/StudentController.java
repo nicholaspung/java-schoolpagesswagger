@@ -1,8 +1,11 @@
 package com.lambdaschool.school.controller;
 
+import com.lambdaschool.school.model.ErrorDetail;
 import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.service.StudentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,10 @@ public class StudentController
     }
 
     @ApiOperation(value = "Retrieves Student based on StudentID", response = Student.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Student Found", response = Student.class),
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
+    })
     @GetMapping(value = "/Student/{StudentId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentById(
@@ -43,7 +50,7 @@ public class StudentController
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Retrieves Students with name like Given Name", responseContainer = "List")
+    @ApiOperation(value = "Retrieves Students with name like Given Name", responseContainer = "List")tatu
     @GetMapping(value = "/student/namelike/{name}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentByNameContaining(
@@ -54,6 +61,11 @@ public class StudentController
     }
 
     @ApiOperation(value = "Creates a new Student", notes = "The newly created studentid will be sent in the location header.", response = void.class)
+    @ApiResponses(value =  {
+            @ApiResponse(code = 201, message = "Student Created", response = void.class),
+            @ApiResponse(code = 400, message = "Need Valid Student Object", response = ErrorDetail.class),
+            @ApiResponse(code = 500, message = "Error Creating Student", response = ErrorDetail.class)
+    })
     @PostMapping(value = "/Student",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -72,6 +84,10 @@ public class StudentController
     }
 
     @ApiOperation(value = "Updates a current Student by StudentID", response = void.class)
+    @ApiResponses(value =  {
+            @ApiResponse(code = 400, message = "Need Valid Student Object", response = ErrorDetail.class),
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
+    })
     @PutMapping(value = "/Student/{Studentid}")
     public ResponseEntity<?> updateStudent(
             @RequestBody
@@ -84,6 +100,9 @@ public class StudentController
     }
 
     @ApiOperation(value = "Deletes a Student by StudentID", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
+    })
     @DeleteMapping("/Student/{Studentid}")
     public ResponseEntity<?> deleteStudentById(
             @PathVariable
