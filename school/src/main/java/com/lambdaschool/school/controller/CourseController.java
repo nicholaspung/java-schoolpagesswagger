@@ -46,6 +46,15 @@ public class CourseController
         return new ResponseEntity<>(myCourses, HttpStatus.OK);
     }
 
+    // Can also do something like this
+//    @ApiOperation(value = "Returns all Courses", responseContainer = "List")
+//    @GetMapping(value = "/allcourses", produces = {"application/json"})
+//    public ResponseEntity<?> listAllCourses()
+//    {
+//        ArrayList<Course> myCourses = courseService.findAll(Pageable.unpaged());
+//        return new ResponseEntity<>(myCourses, HttpStatus.OK);
+//    }
+
     @ApiOperation(value = "Retrieves the count of students per courses", responseContainer = "List")
     @GetMapping(value = "/studcount", produces = {"application/json"})
     public ResponseEntity<?> getCountStudentsInCourses()
