@@ -59,7 +59,7 @@ public class StudentController
     })
     @GetMapping(value = "/Student/{StudentId}",
                 produces = {"application/json"})
-    public ResponseEntity<?> getStudentById(
+    public ResponseEntity<?> getStudentById(@ApiParam(value = "Student Id", required = true, example = "1")
             @PathVariable
                     Long StudentId)
     {
@@ -70,7 +70,7 @@ public class StudentController
     @ApiOperation(value = "Retrieves Students with name like Given Name", responseContainer = "List")
     @GetMapping(value = "/student/namelike/{name}",
                 produces = {"application/json"})
-    public ResponseEntity<?> getStudentByNameContaining(
+    public ResponseEntity<?> getStudentByNameContaining(@ApiParam(value = "Name", required = true, example = "John")
             @PathVariable String name)
     {
         List<Student> myStudents = studentService.findStudentByNameLike(name);
@@ -121,7 +121,7 @@ public class StudentController
             @ApiResponse(code = 404, message = "Student Not Found", response = ErrorDetail.class)
     })
     @DeleteMapping("/Student/{Studentid}")
-    public ResponseEntity<?> deleteStudentById(
+    public ResponseEntity<?> deleteStudentById(@ApiParam(value = "Student Id", required = true, example = "1")
             @PathVariable
                     long Studentid)
     {

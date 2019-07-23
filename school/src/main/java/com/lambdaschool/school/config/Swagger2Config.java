@@ -22,7 +22,6 @@ public class Swagger2Config
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors
-                        .any()).apis(RequestHandlerSelectors
                         .basePackage("com.lambdaschool.school"))
                 .paths(PathSelectors.any())
                 .build().useDefaultResponseMessages(false).ignoredParameterTypes(Pageable.class).apiInfo(apiEndPointsInfo());

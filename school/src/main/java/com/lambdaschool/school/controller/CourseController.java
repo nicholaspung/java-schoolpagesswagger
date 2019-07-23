@@ -67,7 +67,7 @@ public class CourseController
             @ApiResponse(code = 404, message = "Course Not Found", response = ErrorDetail.class)
     })
     @DeleteMapping("/courses/{courseid}")
-    public ResponseEntity<?> deleteCourseById(@PathVariable long courseid)
+    public ResponseEntity<?> deleteCourseById(@ApiParam(value = "Course Id", required = true, example = "1") @PathVariable long courseid)
     {
         courseService.delete(courseid);
         return new ResponseEntity<>(HttpStatus.OK);
