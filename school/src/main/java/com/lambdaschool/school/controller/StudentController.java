@@ -50,7 +50,7 @@ public class StudentController
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Retrieves Students with name like Given Name", responseContainer = "List")tatu
+    @ApiOperation(value = "Retrieves Students with name like Given Name", responseContainer = "List")
     @GetMapping(value = "/student/namelike/{name}",
                 produces = {"application/json"})
     public ResponseEntity<?> getStudentByNameContaining(
