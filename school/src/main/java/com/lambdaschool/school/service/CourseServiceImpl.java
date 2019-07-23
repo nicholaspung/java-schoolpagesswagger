@@ -4,6 +4,7 @@ import com.lambdaschool.school.model.Course;
 import com.lambdaschool.school.repository.CourseRepository;
 import com.lambdaschool.school.view.CountStudentsInCourses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,14 @@ public class CourseServiceImpl implements CourseService
 {
     @Autowired
     private CourseRepository courserepos;
+
+    @Override
+    public ArrayList<Course> findAll(Pageable pageable)
+    {
+        ArrayList<Course> list = new ArrayList<>();
+        courserepos.findAll(pageable).iterator().forEachRemaining(list::add);
+        return list;
+    }
 
     @Override
     public ArrayList<Course> findAll()
